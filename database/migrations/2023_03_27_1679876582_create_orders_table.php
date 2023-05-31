@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
 			$table->text('note')->nullable();
 			$table->text('status')->nullable();
 			$table->timestamps();
+
 		});
 	}
 

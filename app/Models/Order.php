@@ -9,7 +9,7 @@ class Order extends Model
     protected $fillable = [
         'user_id', 'store_id', 'business_id', 'total_price', 'subtotal_price',
         'shipping_address', 'shipping_charges', 'order_start_date', 'customer_name', 'phone_no',
-        'note', 'status'
+        'note', 'status', 'measurement_id'
     ];
 
     public function user()
@@ -25,5 +25,10 @@ class Order extends Model
     public function lynk()
     {
         return $this->belongsTo(Lynk::class);
+    }
+
+    public function measurement()
+    {
+        return $this->belongsTo(Measurement::class);
     }
 }

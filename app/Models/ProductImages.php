@@ -11,10 +11,10 @@ class ProductImages extends Model
         'asset_id',
         'product_id',
     ];
-    public function image()
-    {
-        return $this->belongsTo(Asset::class, 'img_id');
-    }
+    // public function image()
+    // {
+    //     return $this->belongsTo(Asset::class, 'img_id');
+    // }
     public function productImage()
     {
         return $this->belongsTo(Asset::class, 'asset_id');

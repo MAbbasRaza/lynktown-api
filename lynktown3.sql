@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2023 at 08:25 PM
+-- Generation Time: May 31, 2023 at 01:20 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,38 @@ SET time_zone = "+00:00";
 --
 -- Database: `lynktown`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `alteration_requests`
+--
+
+CREATE TABLE `alteration_requests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` int(10) UNSIGNED DEFAULT NULL,
+  `product_id` int(10) UNSIGNED DEFAULT NULL,
+  `store_id` int(10) UNSIGNED DEFAULT NULL,
+  `business_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
+  `photo_id` int(10) UNSIGNED DEFAULT NULL,
+  `status` varchar(191) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `alteration_requests`
+--
+
+INSERT INTO `alteration_requests` (`id`, `order_id`, `product_id`, `store_id`, `business_id`, `user_id`, `photo_id`, `status`, `reason`, `created_at`, `updated_at`) VALUES
+(1, 24, 60, 10, 2, 10, NULL, 'Exchange Requested', '[\"Reason\"]', '2023-05-30 15:31:04', '2023-05-30 15:31:04'),
+(2, 24, 59, 10, 2, 10, NULL, 'Exchange Requested', '[\"Reason Here!\"]', '2023-05-30 15:31:04', '2023-05-30 15:31:04'),
+(3, 24, 60, 10, 2, 10, NULL, 'Exchange Requested', 'Reason', '2023-05-30 15:33:15', '2023-05-30 15:33:15'),
+(4, 24, 59, 10, 2, 10, NULL, 'Exchange Requested', 'Reason Here!', '2023-05-30 15:33:15', '2023-05-30 15:33:15'),
+(5, 24, 60, 10, 2, 10, NULL, 'Exchange Requested', 'Reason', '2023-05-31 06:07:21', '2023-05-31 06:07:21'),
+(6, 24, 59, 10, 2, 10, NULL, 'Exchange Requested', 'Reason Here!', '2023-05-31 06:07:21', '2023-05-31 06:07:21');
 
 -- --------------------------------------------------------
 
@@ -216,6 +248,39 @@ INSERT INTO `catalog_section_products` (`id`, `product_id`, `section_id`, `statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `defected_product_photos`
+--
+
+CREATE TABLE `defected_product_photos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exchange_request_id` int(10) UNSIGNED DEFAULT NULL,
+  `alteration_request_id` int(10) UNSIGNED DEFAULT NULL,
+  `order_id` int(10) UNSIGNED DEFAULT NULL,
+  `product_id` int(10) UNSIGNED DEFAULT NULL,
+  `image_url` varchar(191) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `defected_product_photos`
+--
+
+INSERT INTO `defected_product_photos` (`id`, `exchange_request_id`, `alteration_request_id`, `order_id`, `product_id`, `image_url`, `created_at`, `updated_at`) VALUES
+(1, NULL, 1, 24, 60, '[\"url1\",\"url2\",\"url3\"]', '2023-05-30 15:31:04', '2023-05-30 15:31:04'),
+(2, NULL, 2, 24, 59, '[\"url4\",\"url5\",\"url6\"]', '2023-05-30 15:31:04', '2023-05-30 15:31:04'),
+(3, NULL, 3, 24, 60, '[\"url1\",\"url2\",\"url3\"]', '2023-05-30 15:33:15', '2023-05-30 15:33:15'),
+(4, NULL, 4, 24, 59, '[\"url4\",\"url5\",\"url6\"]', '2023-05-30 15:33:15', '2023-05-30 15:33:15'),
+(5, 95, NULL, 24, 60, '[\"url1\",\"url2\",\"url3\"]', '2023-05-30 15:33:49', '2023-05-30 15:33:49'),
+(6, 96, NULL, 24, 59, '[\"url4\",\"url5\",\"url6\"]', '2023-05-30 15:33:49', '2023-05-30 15:33:49'),
+(7, 97, NULL, 24, 60, '[\"url1\",\"url2\",\"url3\"]', '2023-05-31 06:07:15', '2023-05-31 06:07:15'),
+(8, 98, NULL, 24, 59, '[\"url4\",\"url5\",\"url6\"]', '2023-05-31 06:07:15', '2023-05-31 06:07:15'),
+(9, NULL, 5, 24, 60, '[\"url1\",\"url2\",\"url3\"]', '2023-05-31 06:07:21', '2023-05-31 06:07:21'),
+(10, NULL, 6, 24, 59, '[\"url4\",\"url5\",\"url6\"]', '2023-05-31 06:07:21', '2023-05-31 06:07:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `delivery_settings`
 --
 
@@ -249,6 +314,96 @@ CREATE TABLE `exchange_requests` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exchange_requests`
+--
+
+INSERT INTO `exchange_requests` (`id`, `order_id`, `store_id`, `product_id`, `business_id`, `user_id`, `reason`, `description`, `photo_id`, `status`, `created_at`, `updated_at`) VALUES
+(10, 24, NULL, 59, 2, 10, 'reason', 'desc', 10, 'Requested for exchange', '2023-05-30 10:41:03', '2023-05-31 06:07:21'),
+(11, 24, NULL, 59, 2, 10, 'reason', 'desc', 10, 'Requested for exchange', '2023-05-30 11:05:26', '2023-05-31 06:07:21'),
+(12, 24, 10, 59, 2, 10, 'reason', 'desc', 10, 'Requested for exchange', '2023-05-30 11:06:32', '2023-05-31 06:07:21'),
+(13, 24, 10, 59, 2, 10, 'reason2', 'desc', 10, 'Requested for exchange', '2023-05-30 11:09:47', '2023-05-31 06:07:21'),
+(18, 24, 10, NULL, 789, 10, NULL, 'Exchange request description', NULL, 'Requested for exchange', '2023-05-30 11:25:52', '2023-05-30 11:25:52'),
+(20, 24, 10, NULL, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', NULL, 'Exchange Requested', '2023-05-30 11:39:14', '2023-05-30 11:39:14'),
+(21, 24, 10, 59, 2, 10, '\"Reason 1\"', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:43:42', '2023-05-31 06:07:21'),
+(22, 24, 10, 60, 2, 10, '\"Reason 2\"', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:43:42', '2023-05-31 06:07:21'),
+(23, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:44:12', '2023-05-31 06:07:21'),
+(24, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:44:12', '2023-05-31 06:07:21'),
+(25, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:54:52', '2023-05-31 06:07:21'),
+(26, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:54:52', '2023-05-31 06:07:21'),
+(27, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:57:11', '2023-05-31 06:07:21'),
+(28, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:57:11', '2023-05-31 06:07:21'),
+(29, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:58:08', '2023-05-31 06:07:21'),
+(30, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:58:08', '2023-05-31 06:07:21'),
+(31, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:58:48', '2023-05-31 06:07:21'),
+(32, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:58:48', '2023-05-31 06:07:21'),
+(33, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 11:58:59', '2023-05-31 06:07:21'),
+(34, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 11:58:59', '2023-05-31 06:07:21'),
+(35, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:01:15', '2023-05-31 06:07:21'),
+(36, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:01:15', '2023-05-31 06:07:21'),
+(37, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:01:30', '2023-05-31 06:07:21'),
+(38, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:01:30', '2023-05-31 06:07:21'),
+(39, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:03:56', '2023-05-31 06:07:21'),
+(40, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:03:56', '2023-05-31 06:07:21'),
+(41, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:04:23', '2023-05-31 06:07:21'),
+(42, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:04:23', '2023-05-31 06:07:21'),
+(43, 24, 10, 59, 2, 10, 'Reason 1', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:06:28', '2023-05-31 06:07:21'),
+(44, 24, 10, 60, 2, 10, 'Reason 2', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:06:28', '2023-05-31 06:07:21'),
+(45, 24, 10, 59, 2, 10, 'Reason 1', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:07:49', '2023-05-31 06:07:21'),
+(46, 24, 10, 60, 2, 10, 'Reason 2', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:07:49', '2023-05-31 06:07:21'),
+(47, 24, 10, 59, 2, 10, '\"Reason 1\"', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:09:07', '2023-05-31 06:07:21'),
+(48, 24, 10, 60, 2, 10, '\"Reason 2\"', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:09:07', '2023-05-31 06:07:21'),
+(49, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:09:21', '2023-05-31 06:07:21'),
+(50, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:09:21', '2023-05-31 06:07:21'),
+(51, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:09:36', '2023-05-31 06:07:21'),
+(52, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:09:36', '2023-05-31 06:07:21'),
+(53, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:13:55', '2023-05-31 06:07:21'),
+(54, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:17:34', '2023-05-31 06:07:21'),
+(55, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:17:59', '2023-05-31 06:07:21'),
+(56, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:18:03', '2023-05-31 06:07:21'),
+(57, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:18:30', '2023-05-31 06:07:21'),
+(58, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:18:37', '2023-05-31 06:07:21'),
+(59, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:18:56', '2023-05-31 06:07:21'),
+(60, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:18:56', '2023-05-31 06:07:21'),
+(61, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:19:36', '2023-05-31 06:07:21'),
+(62, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:19:36', '2023-05-31 06:07:21'),
+(63, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:32:18', '2023-05-31 06:07:21'),
+(64, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:35:11', '2023-05-31 06:07:21'),
+(65, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:35:11', '2023-05-31 06:07:21'),
+(66, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:38:19', '2023-05-31 06:07:21'),
+(67, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:38:19', '2023-05-31 06:07:21'),
+(68, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:39:05', '2023-05-31 06:07:21'),
+(69, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:39:05', '2023-05-31 06:07:21'),
+(70, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:43:15', '2023-05-31 06:07:21'),
+(71, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:43:15', '2023-05-31 06:07:21'),
+(72, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:43:28', '2023-05-31 06:07:21'),
+(73, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:43:35', '2023-05-31 06:07:21'),
+(74, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 10, 'Exchange Requested', '2023-05-30 12:47:20', '2023-05-31 06:07:21'),
+(75, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description', 9, 'Exchange Requested', '2023-05-30 12:47:20', '2023-05-31 06:07:21'),
+(76, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:00:41', '2023-05-31 06:07:21'),
+(77, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:01:47', '2023-05-31 06:07:21'),
+(78, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:02:07', '2023-05-31 06:07:21'),
+(79, 24, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 9, 'Exchange Requested', '2023-05-30 13:02:07', '2023-05-31 06:07:21'),
+(80, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:02:58', '2023-05-31 06:07:21'),
+(81, 24, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 9, 'Exchange Requested', '2023-05-30 13:02:58', '2023-05-31 06:07:21'),
+(82, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:08:24', '2023-05-31 06:07:21'),
+(83, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:09:45', '2023-05-31 06:07:21'),
+(84, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:10:52', '2023-05-31 06:07:21'),
+(85, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:13:11', '2023-05-31 06:07:21'),
+(86, 24, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 9, 'Exchange Requested', '2023-05-30 13:13:11', '2023-05-31 06:07:21'),
+(87, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:13:59', '2023-05-31 06:07:21'),
+(88, 24, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 9, 'Exchange Requested', '2023-05-30 13:13:59', '2023-05-31 06:07:21'),
+(89, 24, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 10, 'Exchange Requested', '2023-05-30 13:21:15', '2023-05-31 06:07:21'),
+(90, 24, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 9, 'Exchange Requested', '2023-05-30 13:21:15', '2023-05-31 06:07:21'),
+(91, 23, 10, 59, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 11, 'Exchange Requested', '2023-05-30 13:23:02', '2023-05-30 13:23:02'),
+(92, 23, 10, 60, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 12, 'Exchange Requested', '2023-05-30 13:23:02', '2023-05-30 13:23:02'),
+(93, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 9, 'Exchange Requested', '2023-05-30 13:23:53', '2023-05-31 06:07:21'),
+(94, 24, 10, 59, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 10, 'Exchange Requested', '2023-05-30 13:23:53', '2023-05-31 06:07:21'),
+(95, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 9, 'Exchange Requested', '2023-05-30 15:33:49', '2023-05-31 06:07:21'),
+(96, 24, 10, 59, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 10, 'Exchange Requested', '2023-05-30 15:33:49', '2023-05-31 06:07:21'),
+(97, 24, 10, 60, 2, 10, '[\"Reason 1\",\"Reason 2\",\"Reason 3\"]', 'Some description 1', 9, 'Exchange Requested', '2023-05-31 06:07:15', '2023-05-31 06:07:21'),
+(98, 24, 10, 59, 2, 10, '[\"Reason 4\",\"Reason 5\",\"Reason 6\"]', 'Some description 2', 10, 'Exchange Requested', '2023-05-31 06:07:15', '2023-05-31 06:07:21');
 
 -- --------------------------------------------------------
 
@@ -507,7 +662,9 @@ INSERT INTO `measurements` (`id`, `user_id`, `fitting`, `gender`, `back`, `front
 (11, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-27 12:16:27', '2023-05-27 12:16:27', '', NULL),
 (12, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-27 12:18:08', '2023-05-27 12:18:08', 'url', 'url'),
 (13, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-27 12:38:57', '2023-05-27 12:38:57', 'url', 'url'),
-(14, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-27 12:39:31', '2023-05-27 12:39:31', 'url', 'url');
+(14, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-27 12:39:31', '2023-05-27 12:39:31', 'url', 'url'),
+(15, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-29 10:30:45', '2023-05-29 10:30:45', 'url', 'url'),
+(16, 10, 'Regular', 'Male', '39', '40', '10', '15', '42', '38', '32', '20', '34', '18', '40', '16', '18', '24', '8', 'M', '2023-05-29 10:31:02', '2023-05-29 10:31:02', 'url', 'url');
 
 -- --------------------------------------------------------
 
@@ -572,7 +729,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (46, '2023_05_19_183854_create_follows_table', 6),
 (47, '2023_05_24_184554_add_measurement_id_to_orders', 7),
 (48, '2023_05_27_170820_add_front_back_images_to_measurements', 8),
-(49, '2023_05_27_172558_create_product_requests_table', 9);
+(53, '2023_05_27_172558_create_product_requests_table', 9),
+(54, '2023_05_30_185554_create_alteration_requests_table', 10),
+(55, '2023_05_30_154629_create_defected_product_photos_table', 11);
 
 -- --------------------------------------------------------
 
@@ -632,7 +791,7 @@ INSERT INTO `orders` (`id`, `user_id`, `store_id`, `lynk_id`, `total_price`, `su
 (9, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-24 13:05:26', '2023-05-24 13:05:26', NULL),
 (10, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:22:20', '2023-05-27 11:22:20', NULL),
 (11, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:29:52', '2023-05-27 11:29:52', NULL),
-(12, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:31:23', '2023-05-27 11:31:23', NULL),
+(12, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:31:23', '2023-05-29 09:40:40', 9),
 (13, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:32:40', '2023-05-27 11:32:40', NULL),
 (14, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:33:43', '2023-05-27 11:33:43', NULL),
 (15, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:34:12', '2023-05-27 11:34:12', NULL),
@@ -644,7 +803,19 @@ INSERT INTO `orders` (`id`, `user_id`, `store_id`, `lynk_id`, `total_price`, `su
 (21, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 11:56:12', '2023-05-27 11:56:12', NULL),
 (22, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 12:01:59', '2023-05-27 12:01:59', NULL),
 (23, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 12:02:32', '2023-05-27 12:02:32', NULL),
-(24, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 12:04:14', '2023-05-27 12:39:31', 14);
+(24, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-27 12:04:14', '2023-05-27 12:39:31', 14),
+(25, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:13:47', '2023-05-29 10:13:47', NULL),
+(26, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:14:37', '2023-05-29 10:14:37', NULL),
+(27, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:17:11', '2023-05-29 10:17:11', NULL),
+(28, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:19:30', '2023-05-29 10:19:30', NULL),
+(29, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:24:34', '2023-05-29 10:30:45', 15),
+(30, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:25:26', '2023-05-29 10:31:02', 16),
+(31, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:34:05', '2023-05-29 10:34:25', 9),
+(32, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:36:03', '2023-05-29 10:36:03', NULL),
+(33, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:37:23', '2023-05-29 10:37:23', NULL),
+(34, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:38:48', '2023-05-29 10:38:48', NULL),
+(35, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-29 10:39:31', '2023-05-29 10:39:31', NULL),
+(36, 10, 10, 97, 69770, 69770, '123 Street, City', '10', '2023-05-01', NULL, '1234567890', 'Sample note', 'pending', '2023-05-30 11:18:13', '2023-05-30 11:18:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -660,6 +831,18 @@ CREATE TABLE `order_activity` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_activity`
+--
+
+INSERT INTO `order_activity` (`id`, `order_id`, `status`, `note`, `created_at`, `updated_at`) VALUES
+(1, 29, 'processing', 'Sample note', '2023-05-29 10:24:34', '2023-05-29 10:30:45'),
+(2, 30, 'processing', 'Sample note', '2023-05-29 10:25:26', '2023-05-29 10:31:02'),
+(3, 31, 'processing', 'Sample note', '2023-05-29 10:34:05', '2023-05-29 10:34:25'),
+(4, 34, 'measurement pending', 'Sample note', '2023-05-29 10:38:48', '2023-05-29 10:38:48'),
+(5, 35, 'completed', 'Sample note', '2023-05-29 10:39:31', '2023-05-29 10:58:20'),
+(6, 36, 'processing', 'Sample note', '2023-05-30 11:18:13', '2023-05-30 11:18:13');
 
 -- --------------------------------------------------------
 
@@ -737,8 +920,32 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `quantity`, `price
 (46, 22, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-27 12:01:59', '2023-05-27 12:01:59'),
 (47, 23, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-27 12:02:32', '2023-05-27 12:02:32'),
 (48, 23, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-27 12:02:32', '2023-05-27 12:02:32'),
-(49, 24, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-27 12:04:14', '2023-05-27 12:04:14'),
-(50, 24, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-27 12:04:14', '2023-05-27 12:04:14');
+(49, 24, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, 'return requested', NULL, '2023-05-27 12:04:14', '2023-05-27 12:04:14'),
+(50, 24, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, 'return requested', NULL, '2023-05-27 12:04:14', '2023-05-27 12:04:14'),
+(51, 25, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:13:47', '2023-05-29 10:13:47'),
+(52, 25, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:13:47', '2023-05-29 10:13:47'),
+(53, 26, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:14:37', '2023-05-29 10:14:37'),
+(54, 26, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:14:37', '2023-05-29 10:14:37'),
+(55, NULL, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:17:11', '2023-05-29 10:17:11'),
+(56, NULL, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:17:11', '2023-05-29 10:17:11'),
+(57, 28, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:19:30', '2023-05-29 10:19:30'),
+(58, 28, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:19:30', '2023-05-29 10:19:30'),
+(59, 29, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:24:34', '2023-05-29 10:24:34'),
+(60, 29, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:24:34', '2023-05-29 10:24:34'),
+(61, 30, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:25:26', '2023-05-29 10:25:26'),
+(62, 30, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:25:26', '2023-05-29 10:25:26'),
+(63, 31, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:34:05', '2023-05-29 10:34:05'),
+(64, 31, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:34:05', '2023-05-29 10:34:05'),
+(65, 32, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:36:03', '2023-05-29 10:36:03'),
+(66, 32, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:36:03', '2023-05-29 10:36:03'),
+(67, 33, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:37:23', '2023-05-29 10:37:23'),
+(68, 33, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:37:23', '2023-05-29 10:37:23'),
+(69, 34, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:38:48', '2023-05-29 10:38:48'),
+(70, 34, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:38:48', '2023-05-29 10:38:48'),
+(71, 35, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-29 10:39:31', '2023-05-29 10:39:31'),
+(72, 35, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-29 10:39:31', '2023-05-29 10:39:31'),
+(73, 36, 59, 2, 6586.00, NULL, NULL, NULL, 'Hdjkfv', 'L', 1, NULL, NULL, '2023-05-30 11:18:13', '2023-05-30 11:18:13'),
+(74, 36, 60, 1, 56598.00, NULL, NULL, NULL, 'Jfjckvlgl', 'M', 1, NULL, NULL, '2023-05-30 11:18:13', '2023-05-30 11:18:13');
 
 -- --------------------------------------------------------
 
@@ -841,7 +1048,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (38, 'App\\Models\\User', 10, 'API Token', '8495ed4507f1ec573766ecf7494d39ffe2fd44e2b74c1591d51ef6fec43b6688', '[\"*\"]', NULL, NULL, '2023-05-24 09:33:42', '2023-05-24 09:33:42'),
 (39, 'App\\Models\\User', 10, 'API Token', 'bce06a77d0e65ac63ad45cc0c8b29ac2024693851160eaf6a47e9df22e432b51', '[\"*\"]', '2023-05-24 14:19:23', NULL, '2023-05-24 10:55:55', '2023-05-24 14:19:23'),
 (40, 'App\\Models\\User', 10, 'API Token', '87283b238db8b5b7f9d147b06766acbc8df64f904ea3ab2a27a1e4226ad14771', '[\"*\"]', '2023-05-25 12:14:35', NULL, '2023-05-25 09:25:54', '2023-05-25 12:14:35'),
-(41, 'App\\Models\\User', 10, 'API Token', '0147b53a9e988f812a77b30b9bb9b0e6c270b1449e170d145266bf8480e68abf', '[\"*\"]', '2023-05-27 13:21:30', NULL, '2023-05-27 11:21:40', '2023-05-27 13:21:30');
+(41, 'App\\Models\\User', 10, 'API Token', '0147b53a9e988f812a77b30b9bb9b0e6c270b1449e170d145266bf8480e68abf', '[\"*\"]', '2023-05-27 13:21:30', NULL, '2023-05-27 11:21:40', '2023-05-27 13:21:30'),
+(42, 'App\\Models\\User', 10, 'API Token', '5fd752952cfa5f4c69b0b845b13564bb9872f9030d879cc3661702811ccb07b3', '[\"*\"]', '2023-05-29 13:48:19', NULL, '2023-05-29 09:39:20', '2023-05-29 13:48:19'),
+(43, 'App\\Models\\User', 10, 'API Token', 'e504b79e8a965173786385ecc119409905eb502533557d14d7ee71ff12d62bd7', '[\"*\"]', '2023-05-30 15:33:49', NULL, '2023-05-30 09:19:06', '2023-05-30 15:33:49'),
+(44, 'App\\Models\\User', 10, 'API Token', '1961252f54a859001c3dbd6867c2733e1ec4ce1f7515dfde8a391198bd6fe992', '[\"*\"]', '2023-05-31 06:20:03', NULL, '2023-05-31 06:06:43', '2023-05-31 06:20:03');
 
 -- --------------------------------------------------------
 
@@ -905,7 +1115,11 @@ INSERT INTO `phone_verifications` (`id`, `phone_no`, `otp_code`, `is_expired`, `
 (40, '2', '766071', 1, '2023-05-24 09:33:30', '2023-05-24 09:33:41'),
 (41, '2', '981666', 1, '2023-05-24 10:55:45', '2023-05-24 10:55:55'),
 (42, '2', '322912', 1, '2023-05-25 09:25:43', '2023-05-25 09:25:54'),
-(43, '2', '193529', 1, '2023-05-27 11:21:28', '2023-05-27 11:21:40');
+(43, '2', '193529', 1, '2023-05-27 11:21:28', '2023-05-27 11:21:40'),
+(44, '2', '707572', 1, '2023-05-29 09:39:09', '2023-05-29 09:39:19'),
+(45, '2', '096649', 0, '2023-05-30 09:18:48', '2023-05-30 09:18:48'),
+(46, '2', '797566', 1, '2023-05-30 09:18:55', '2023-05-30 09:19:06'),
+(47, '2', '848175', 1, '2023-05-31 06:06:32', '2023-05-31 06:06:43');
 
 -- --------------------------------------------------------
 
@@ -1102,20 +1316,6 @@ CREATE TABLE `product_requests` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `product_requests`
---
-
-INSERT INTO `product_requests` (`id`, `order_request_id`, `product_image`, `product_link`, `created_at`, `updated_at`) VALUES
-(1, 4, 'url1', 'url2', '2023-05-27 13:13:53', '2023-05-27 13:13:53'),
-(2, 4, 'url3', 'url4', '2023-05-27 13:13:53', '2023-05-27 13:13:53'),
-(3, 5, 'url1', 'url2', '2023-05-27 13:15:23', '2023-05-27 13:15:23'),
-(4, 5, 'url3', 'url4', '2023-05-27 13:15:23', '2023-05-27 13:15:23'),
-(5, 6, 'url1', 'url2', '2023-05-27 13:16:31', '2023-05-27 13:16:31'),
-(6, 6, 'url3', 'url4', '2023-05-27 13:16:31', '2023-05-27 13:16:31'),
-(7, 7, 'url1', 'url2', '2023-05-27 13:21:30', '2023-05-27 13:21:30'),
-(8, 7, 'url3', 'url4', '2023-05-27 13:21:30', '2023-05-27 13:21:30');
 
 -- --------------------------------------------------------
 
@@ -1329,7 +1529,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `phone_no`, `photo_asset_id`, `cover_photo_asset_id`, `verification_code`, `is_deleted`, `remember_token`, `created_at`, `updated_at`, `account_type`) VALUES
 (9, NULL, 'itsdisposable008@gmail.com', NULL, '$2y$10$WsOLDSIoYZaTs43hb.ZU2OoJy8ZXKJlIU61I4c7nAx/t49CDUEWyS', '1234567890', NULL, NULL, NULL, 0, '0JeLU0oH5wdyDBjKGryh4X0av6G4MOtKDUE6E2xYIOx2f6Z7Ecem07m2tXk4VR2M', '2023-05-12 08:07:52', '2023-05-17 20:57:21', ''),
-(10, NULL, 'test@email.com', NULL, '$2y$10$cv02zf54APStCEnusyU2IOHbBejKgOeGpx638qrFgej.hySdiyh96', '2', NULL, NULL, NULL, 0, 'r1AetMDyL1cyFhKSNSsPKMHwOUsXp7RMeetN0StjUpKy6IpkgffmfTSGL5bN1RhA', '2023-05-19 08:06:29', '2023-05-27 11:21:40', 'customer');
+(10, NULL, 'test@email.com', NULL, '$2y$10$cv02zf54APStCEnusyU2IOHbBejKgOeGpx638qrFgej.hySdiyh96', '2', NULL, NULL, NULL, 0, 'B4NxKoRlgOwJzxk8Rgmglx2kwLOrCA7viKkwkBPx41Nw2s1GYHogWsWoRTXNVCVd', '2023-05-19 08:06:29', '2023-05-31 06:06:43', 'customer');
 
 -- --------------------------------------------------------
 
@@ -1349,6 +1549,14 @@ CREATE TABLE `wishlist` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `alteration_requests`
+--
+ALTER TABLE `alteration_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alteration_requests_order_id_foreign` (`order_id`),
+  ADD KEY `alteration_requests_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `assets`
@@ -1385,6 +1593,15 @@ ALTER TABLE `catalog_section_products`
   ADD KEY `catalog_section_products_product_id_foreign` (`product_id`);
 
 --
+-- Indexes for table `defected_product_photos`
+--
+ALTER TABLE `defected_product_photos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `defected_product_photos_exchange_request_id_foreign` (`exchange_request_id`),
+  ADD KEY `defected_product_photos_order_id_foreign` (`order_id`),
+  ADD KEY `defected_product_photos_product_id_foreign` (`product_id`);
+
+--
 -- Indexes for table `delivery_settings`
 --
 ALTER TABLE `delivery_settings`
@@ -1396,10 +1613,9 @@ ALTER TABLE `delivery_settings`
 --
 ALTER TABLE `exchange_requests`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `exchange_requests_product_id_foreign` (`product_id`),
   ADD KEY `exchange_requests_store_id_foreign` (`store_id`),
-  ADD KEY `exchange_requests_user_id_foreign` (`user_id`),
-  ADD KEY `exchange_requests_photo_id_foreign` (`photo_id`);
+  ADD KEY `exchange_requests_user_id_foreign` (`user_id`) USING BTREE,
+  ADD KEY `exchange_requests_product_id_foreign` (`product_id`) USING BTREE;
 
 --
 -- Indexes for table `failed_jobs`
@@ -1570,6 +1786,12 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `alteration_requests`
+--
+ALTER TABLE `alteration_requests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
@@ -1600,6 +1822,12 @@ ALTER TABLE `catalog_section_products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `defected_product_photos`
+--
+ALTER TABLE `defected_product_photos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `delivery_settings`
 --
 ALTER TABLE `delivery_settings`
@@ -1609,7 +1837,7 @@ ALTER TABLE `delivery_settings`
 -- AUTO_INCREMENT for table `exchange_requests`
 --
 ALTER TABLE `exchange_requests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1645,13 +1873,13 @@ ALTER TABLE `lynk_products`
 -- AUTO_INCREMENT for table `measurements`
 --
 ALTER TABLE `measurements`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1663,19 +1891,19 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `order_activity`
 --
 ALTER TABLE `order_activity`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `order_requests`
@@ -1687,13 +1915,13 @@ ALTER TABLE `order_requests`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `phone_verifications`
 --
 ALTER TABLE `phone_verifications`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1711,7 +1939,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `product_requests`
 --
 ALTER TABLE `product_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `record_details`
@@ -1742,6 +1970,13 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- Constraints for table `alteration_requests`
+--
+ALTER TABLE `alteration_requests`
+  ADD CONSTRAINT `alteration_requests_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `alteration_requests_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `catalog_products`
 --
 ALTER TABLE `catalog_products`
@@ -1756,6 +1991,14 @@ ALTER TABLE `catalog_section_products`
   ADD CONSTRAINT `catalog_section_products_section_id_foreign` FOREIGN KEY (`section_id`) REFERENCES `catalogs_sections` (`id`);
 
 --
+-- Constraints for table `defected_product_photos`
+--
+ALTER TABLE `defected_product_photos`
+  ADD CONSTRAINT `defected_product_photos_exchange_request_id_foreign` FOREIGN KEY (`exchange_request_id`) REFERENCES `exchange_requests` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `defected_product_photos_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `defected_product_photos_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `delivery_settings`
 --
 ALTER TABLE `delivery_settings`
@@ -1765,10 +2008,9 @@ ALTER TABLE `delivery_settings`
 -- Constraints for table `exchange_requests`
 --
 ALTER TABLE `exchange_requests`
-  ADD CONSTRAINT `exchange_requests_photo_id_foreign` FOREIGN KEY (`photo_id`) REFERENCES `assets` (`id`),
-  ADD CONSTRAINT `exchange_requests_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `order_products` (`id`),
-  ADD CONSTRAINT `exchange_requests_store_id_foreign` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`),
-  ADD CONSTRAINT `exchange_requests_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `exchange_requests_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `exchange_requests_store_id_foreign` FOREIGN KEY (`store_id`) REFERENCES `stores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `exchange_requests_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `login_activity`
@@ -1814,7 +2056,7 @@ ALTER TABLE `orders`
 -- Constraints for table `order_activity`
 --
 ALTER TABLE `order_activity`
-  ADD CONSTRAINT `order_activity_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+  ADD CONSTRAINT `order_activity_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_products`

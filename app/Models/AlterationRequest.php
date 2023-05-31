@@ -5,25 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExchangeRequest extends Model
+class AlterationRequest extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'order_id',
         'store_id',
-        'product_id',
         'business_id',
         'user_id',
-        'reason',
-        'description',
         'photo_id',
         'status',
+        'reason',
     ];
 
-    public function defectedProductPhotos()
-{
-    return $this->hasMany(DefectedProductPhoto::class, 'exchange_request_id');
-}
 
+    public function defectedProductPhoto()
+    {
+        return $this->hasMany(DefectedProductPhoto::class, 'alteration_request_id');
+    }
 }

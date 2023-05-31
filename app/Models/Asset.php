@@ -9,4 +9,9 @@ class Asset extends Model
     protected $fillable = [
         'url', 'type',
     ];
+
+    public function asset()
+    {
+        return $this->belongsTo(ProductImages::class);
+    }
 }

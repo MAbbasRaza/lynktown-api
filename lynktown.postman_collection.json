@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "baa2963c-3a24-428b-b9cf-18a0b5691c94",
+		"_postman_id": "50e2df05-c2e5-43d4-baf9-f98d519f9e23",
 		"name": "lynktown",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21874213"
+		"_exporter_id": "26422377"
 	},
 	"item": [
 		{
@@ -70,7 +70,7 @@
 						},
 						{
 							"key": "verification_code",
-							"value": "197883",
+							"value": "848175",
 							"type": "text"
 						}
 					]
@@ -294,6 +294,496 @@
 					"path": [
 						"customer",
 						"followstore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Custom Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"store_id\": 10,\r\n    \"lynk_id\": 97,\r\n    \"shipping_address\": \"123 Street, City\",\r\n    \"shipping_charges\": 10,\r\n    \"order_start_date\": \"2023-05-01\",\r\n    \"phone_no\": \"1234567890\",\r\n    \"note\": \"Sample note\",\r\n    \"status\": \"pending\",\r\n    \"products\": [\r\n        {\r\n            \"product_id\": 59,\r\n            \"quantity\": 2,\r\n            \"size\": \"L\"\r\n        },\r\n        {\r\n            \"product_id\": 60,\r\n            \"quantity\": 1,\r\n            \"size\": \"M\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/createcustomorder",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"createcustomorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Measurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user_id\": 10,\r\n \"order_id\": 5,\r\n    \"measurements\": {\r\n        \"user_id\": 10,\r\n        \"fitting\": \"Regular\",\r\n        \"gender\": \"Male\",\r\n        \"back\": 39,\r\n        \"front\": 40,\r\n        \"ankle\": 10,\r\n        \"calf\": 15,\r\n        \"full_length\": 42,\r\n        \"hip_round\": 38,\r\n        \"inseam\": 32,\r\n        \"thigh\": 20,\r\n        \"waist\": 34,\r\n        \"arm_hole\": 18,\r\n        \"chest\": 40,\r\n        \"neck\": 16,\r\n        \"shoulder\": 18,\r\n        \"sleeve_length\": 24,\r\n        \"wrist\": 8,\r\n        \"size\": \"M\",\r\n        \"front_image\": \"url\",\r\n        \"back_image\": \"url\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/addmeasurement/30",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"addmeasurement",
+						"30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Measurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getsinglemeasurement/14",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getsinglemeasurement",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Single Measurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"measurement\": {\r\n        \"fitting\": \"Updated Regular\",\r\n        \"gender\": \"Updated Male\",\r\n        \"back\": 20,\r\n        \"front\": 41,\r\n        \"ankle\": 11,\r\n        \"calf\": 16,\r\n        \"full_length\": 43,\r\n        \"hip_round\": 39,\r\n        \"inseam\": 33,\r\n        \"thigh\": 21,\r\n        \"waist\": 35,\r\n        \"arm_hole\": 19,\r\n        \"chest\": 41,\r\n        \"neck\": 17,\r\n        \"shoulder\": 19,\r\n        \"sleeve_length\": 25,\r\n        \"wrist\": 9,\r\n        \"size\": \"M\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/measurement/update/4",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"measurement",
+						"update",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Measurements",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/customer/getallmeasurements",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getallmeasurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"store_id\": 10,\r\n    \"name\": \"abc\",\r\n    \"phone_no\": \"1234567890\",\r\n    \"note\": \"Sample note\",\r\n    \"business_id\": 2,\r\n    \"status\": \"pending\",\r\n    \"products\": [\r\n        {\r\n            \"product_image\": \"url1\",\r\n            \"product_url\": \"url2\"            \r\n        },\r\n        {\r\n            \"product_image\": \"url3\",\r\n            \"product_url\": \"url4\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/requestorder",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"requestorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Old Measurement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "measurement_id",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "order_id",
+							"value": "31",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/addoldmeasurement",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"addoldmeasurement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order Activity",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "order_activity",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "order_id",
+							"value": "35",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "completed",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/updateactivity",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"updateactivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getorders",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getorders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Order Details",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "order_id",
+							"value": "24",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getspecificorder",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getspecificorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invoice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "order_id",
+							"value": "24",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getinvoice",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getinvoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exchange Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": [\"Reason 4\", \"Reason 5\", \"Reason 6\"],\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"],\r\n            \"desc\": \"Some description 2\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/exchangerequest",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"exchangerequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alteration Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": \"Reason\",\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"]\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": \"Reason Here!\",\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"]\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/alterationrequest",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"alterationrequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": [\"Reason 4\", \"Reason 5\", \"Reason 6\"],\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"],\r\n            \"desc\": \"Some description 2\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/returnrequest",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"returnrequest"
 					]
 				}
 			},
