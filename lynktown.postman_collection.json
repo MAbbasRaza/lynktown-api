@@ -70,7 +70,7 @@
 						},
 						{
 							"key": "verification_code",
-							"value": "848175",
+							"value": "782098",
 							"type": "text"
 						}
 					]
@@ -618,6 +618,76 @@
 			"response": []
 		},
 		{
+			"name": "Get User Ready Made Orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getreadymadeorders",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getreadymadeorders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Custom Made Orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "10",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/customer/getcustommadeorders",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"getcustommadeorders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Specific Order Details",
 			"request": {
 				"method": "POST",
@@ -703,7 +773,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": [\"Reason 4\", \"Reason 5\", \"Reason 6\"],\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"],\r\n            \"desc\": \"Some description 2\"\r\n        }\r\n    ]\r\n}\r\n",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 19,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        }\r\n    ]\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -769,7 +839,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": [\"Reason 4\", \"Reason 5\", \"Reason 6\"],\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"],\r\n            \"desc\": \"Some description 2\"\r\n        }\r\n    ]\r\n}\r\n",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 19,\r\n    \"store_id\": 10,\r\n    \"business_id\": 2,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"reasons\": [\"Reason 1\", \"Reason 2\", \"Reason 3\"],\r\n            \"photo_urls\": [\"url1\", \"url2\", \"url3\"],\r\n            \"desc\": \"Some description 1\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"reasons\": [\"Reason 4\", \"Reason 5\", \"Reason 6\"],\r\n            \"photo_urls\": [\"url4\", \"url5\", \"url6\"],\r\n            \"desc\": \"Some description 2\"\r\n        }\r\n    ]\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -784,6 +854,39 @@
 					"path": [
 						"customer",
 						"returnrequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel Alteration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 10,\r\n    \"order_id\": 24,\r\n    \"product\": [\r\n        {\r\n            \"product_id\": 60,\r\n            \"status\": \"Alteration Request Cancelled\"\r\n        },\r\n        {\r\n            \"product_id\": 59,\r\n            \"status\": \"Alteration Request Cancelled\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/customer/cancelalteration",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"customer",
+						"cancelalteration"
 					]
 				}
 			},

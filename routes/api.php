@@ -98,10 +98,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/addoldmeasurement','addOldMeasurement');
         Route::post('/updateactivity', 'updateActivity');
         Route::post('/getorders', 'getAllOrders');
+        Route::post('/getreadymadeorders', 'getAllReadyMadeOrders');
+        Route::post('/getcustommadeorders', 'getAllCustomMadeOrders');
         Route::post('/getspecificorder', 'getSpecificOrderDetails');
         Route::post('/getinvoice', 'getInvoiceDetails');
         Route::post('/exchangerequest', 'exchangeRequest');
         Route::post('/alterationrequest','alterRequest');
         Route::post('/returnrequest', 'returnRequest');
+        Route::post('/cancelalteration', 'cancelAlteration');
     });
 });

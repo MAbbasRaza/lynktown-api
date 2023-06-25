@@ -557,14 +557,109 @@ public function requestorder(Request $request)
 
 
 
-            public function getAllOrders()
+        public function getAllOrders()
+        {
+            try {
+                // Retrieve the logged-in user
+                $user = auth()->user();
+        
+                // Retrieve the orders associated with the user
+                $orders = $user->orders;
+        
+                foreach ($orders as $order) {
+                    // Retrieve the products related to the order_id
+                    $products = OrderProduct::where('order_id', $order->id)->get();
+
+
+
+                    // Retrieve the product images for each product
+                foreach ($products as $product) {
+                    $productImg = ProductImages::where('product_id', $product->product_id)->get();
+                    $product->images = $productImg;
+
+
+                    foreach ($productImg as $image) {
+                        $asset = Asset::where('id', $image->asset_id)->select('url')->first();
+                        $image->url = $asset ? $asset->url : null;
+                    }
+
+                    }
+        
+                    // Sum up the quantity of products
+                    $totalQuantity = $products->sum('quantity');
+        
+                    // Assign the products and count to the order
+                    $order->products = $products;
+                    $order->productCount = $totalQuantity;
+                }
+
+        
+                // Return the orders with products and count in JSON format
+                return response()->json($orders);
+            } catch (\Throwable $e) {
+                // Handle any exceptions
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
+
+
+
+
+            public function getAllReadyMadeOrders()
             {
                 try {
                     // Retrieve the logged-in user
                     $user = auth()->user();
             
                     // Retrieve the orders associated with the user
-                    $orders = $user->orders;
+                    $orders = $user->orders()->whereNull('measurement_id')->get();
+            
+                    foreach ($orders as $order) {
+                        // Retrieve the products related to the order_id
+                        $products = OrderProduct::where('order_id', $order->id)->get();
+
+
+
+                        // Retrieve the product images for each product
+                    foreach ($products as $product) {
+                        $productImg = ProductImages::where('product_id', $product->product_id)->get();
+                        $product->images = $productImg;
+
+
+                        foreach ($productImg as $image) {
+                            $asset = Asset::where('id', $image->asset_id)->select('url')->first();
+                            $image->url = $asset ? $asset->url : null;
+                        }
+
+                        }
+            
+                        // Sum up the quantity of products
+                        $totalQuantity = $products->sum('quantity');
+            
+                        // Assign the products and count to the order
+                        $order->products = $products;
+                        $order->productCount = $totalQuantity;
+                    }
+
+            
+                    // Return the orders with products and count in JSON format
+                    return response()->json($orders);
+                } catch (\Throwable $e) {
+                    // Handle any exceptions
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
+            }
+
+
+
+            public function getAllCustomMadeOrders()
+            {
+                try {
+                    // Retrieve the logged-in user
+                    $user = auth()->user();
+            
+                    // Retrieve the orders associated with the user
+                    $orders = $user->orders()->whereNotNull('measurement_id')->get();
             
                     foreach ($orders as $order) {
                         // Retrieve the products related to the order_id
@@ -800,7 +895,7 @@ public function requestorder(Request $request)
                         'product.*.photo_urls' => 'required|array',
                     ]);
             
-                    $status = 'Exchange Requested';
+                    $status = 'Alteration Requested';
                     $products = $validatedData['product'];
             
                     // Iterate through each product
@@ -808,12 +903,14 @@ public function requestorder(Request $request)
                         $productId = $productData['product_id'];
                         $reasons = $productData['reasons'];
                         $photoUrls = $productData['photo_urls'];
-            
-                        // Check if an exchange request already exists for the product
-                        // $existingExchange = ExchangeRequest::where('product_id', $productId)->exists();
-                        // if ($existingExchange) {
-                        //     return response()->json(['message' => 'Exchange request already exists for the product'], 400);
+
+
+                        // // Check if an alteration request already exists for the product
+                        // $existingAlteration = AlterationRequest::where('product_id', $productId)->exists();
+                        // if ($existingAlteration) {
+                        //     return response()->json(['message' => 'Alteration request already exists for the product'], 400);
                         // }
+
             
                         // Create a new exchange request
                         $alter = new AlterationRequest();
@@ -848,7 +945,7 @@ public function requestorder(Request $request)
                         
                     }
             
-                    return response()->json(['message' => 'Exchange Requested Successfully']);
+                    return response()->json(['message' => 'Alteration Requested Successfully']);
                 } catch (\Throwable $e) {
                     return response()->json(['error' => $e->getMessage()], 500);
                 }
@@ -885,6 +982,35 @@ public function requestorder(Request $request)
                     return response()->json(['error' => $e->getMessage()], 500);
                 }
             }
+
+
+            public function cancelAlteration(Request $request)
+            {
+                try {
+                    $validatedData = $request->validate([
+                        'user_id' => 'required',
+                        'order_id' => 'required',
+                        'product' => 'required|array',
+                        'product.*.product_id' => 'required',
+                        'product.*.status' => 'required'
+                    ]);
+            
+                    $products = $validatedData['product'];
+            
+                    foreach ($products as $productData) {
+                        $productId = $productData['product_id'];
+            
+                        AlterationRequest::where('order_id', $validatedData['order_id'])
+                            ->where('product_id', $productId)
+                            ->update(['status' => 'Alteration Request Cancelled']);
+                    }
+            
+                    return response()->json(['message' => 'Alteration Request Cancelled']);
+                } catch (\Throwable $e) {
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
+            }
+            
             
                           
 }
